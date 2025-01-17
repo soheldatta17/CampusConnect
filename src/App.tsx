@@ -15,9 +15,11 @@ import { SignUpPage } from './pages/SignUpPage';
 import { Toaster } from 'react-hot-toast';
 import Joyride, { CallBackProps, STATUS } from 'react-joyride';
 import { useStore } from './store/useStore';
+import { useAuth } from './contexts/AuthContext';
 
 function App() {
   const { darkMode } = useStore();
+  const { user } = useAuth();
 
   const steps = [
     {
@@ -58,32 +60,53 @@ function App() {
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { status } = data;
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
-      // Save to localStorage that the tour is completed
       localStorage.setItem('tourCompleted', 'true');
     }
   };
 
-  const showTour = !localStorage.getItem('tourCompleted');
+  const showTour = user && !localStorage.getItem('tourCompleted');
 
   return (
     <AuthProvider>
       <Router>
         <Layout>
-          <Joyride
-            steps={steps}
-            continuous
-            showProgress
-            showSkipButton
-            run={showTour}
-            callback={handleJoyrideCallback}
-            styles={{
-              options: {
-                primaryColor: '#4f46e5',
-                textColor: darkMode ? '#fff' : '#111827',
-                backgroundColor: darkMode ? '#1f2937' : '#ffffff',
-              },
-            }}
-          />
+          {user && (
+            <Joyride
+              steps={steps}
+              continuous
+              showProgress
+              showSkipButton
+              run={showTour}
+              callback={handleJoyrideCallback}
+              styles={{
+                options: {
+                  primaryColor: '#4f46e5',
+                  textColor: darkMode ? '#fff' : '#111827',
+                  backgroundColor: darkMode ? '#1f2937' : '#ffffff',
+                  overlayColor: 'rgba(0, 0, 0, 0.5)',
+                  spotlightShadow: '0 0 15px rgba(0, 0, 0, 0.3)',
+                  beaconSize: 36,
+                  zIndex: 100,
+                },
+                tooltip: {
+                  borderRadius: '12px',
+                  padding: '20px',
+                },
+                buttonNext: {
+                  backgroundColor: '#4f46e5',
+                  borderRadius: '8px',
+                  padding: '10px 16px',
+                },
+                buttonBack: {
+                  color: '#4f46e5',
+                  marginRight: 10,
+                },
+                buttonSkip: {
+                  color: '#6b7280',
+                },
+              }}
+            />
+          )}
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />

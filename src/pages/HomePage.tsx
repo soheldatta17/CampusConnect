@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Book, Coffee, Calendar, CheckSquare, Sun, Cloud, CloudRain, Wind, Newspaper, Trophy, TrendingUp, Bell } from 'lucide-react';
+import { Book, Coffee, Calendar, CheckSquare, Sun, Cloud, CloudRain, Wind, Newspaper, Trophy, TrendingUp, Bell, GraduationCap, Award, Users, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 
@@ -41,28 +41,36 @@ export function HomePage() {
       icon: <Book className="w-8 h-8" />,
       description: 'Browse and borrow books',
       link: '/library',
-      color: 'bg-blue-500',
+      gradient: 'from-blue-500/20 via-blue-400/10 to-blue-300/5',
+      iconGradient: 'from-blue-600 to-blue-400',
+      borderGlow: 'hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]'
     },
     {
       title: 'Canteen',
       icon: <Coffee className="w-8 h-8" />,
       description: 'Order food and drinks',
       link: '/canteen',
-      color: 'bg-orange-500',
+      gradient: 'from-orange-500/20 via-orange-400/10 to-orange-300/5',
+      iconGradient: 'from-orange-600 to-orange-400',
+      borderGlow: 'hover:shadow-[0_0_15px_rgba(249,115,22,0.5)]'
     },
     {
       title: 'Events',
       icon: <Calendar className="w-8 h-8" />,
       description: 'View upcoming events',
       link: '/events',
-      color: 'bg-purple-500',
+      gradient: 'from-purple-500/20 via-purple-400/10 to-purple-300/5',
+      iconGradient: 'from-purple-600 to-purple-400',
+      borderGlow: 'hover:shadow-[0_0_15px_rgba(147,51,234,0.5)]'
     },
     {
       title: 'Tasks',
       icon: <CheckSquare className="w-8 h-8" />,
       description: 'Manage your tasks',
       link: '/tasks',
-      color: 'bg-green-500',
+      gradient: 'from-green-500/20 via-green-400/10 to-green-300/5',
+      iconGradient: 'from-green-600 to-green-400',
+      borderGlow: 'hover:shadow-[0_0_15px_rgba(34,197,94,0.5)]'
     },
   ];
 
@@ -71,19 +79,22 @@ export function HomePage() {
       title: 'Annual Tech Fest Announced',
       date: 'March 15, 2024',
       image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400',
-      category: 'Events'
+      category: 'Events',
+      gradient: 'from-indigo-500/20 to-purple-500/20'
     },
     {
       title: 'New Research Lab Opening',
       date: 'March 18, 2024',
       image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400',
-      category: 'Facilities'
+      category: 'Facilities',
+      gradient: 'from-blue-500/20 to-cyan-500/20'
     },
     {
       title: 'Sports Tournament Results',
       date: 'March 20, 2024',
       image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400',
-      category: 'Sports'
+      category: 'Sports',
+      gradient: 'from-green-500/20 to-emerald-500/20'
     }
   ];
 
@@ -93,16 +104,38 @@ export function HomePage() {
     completedCredits: '90',
     totalCredits: '120',
     recentGrades: [
-      { subject: 'Computer Networks', grade: 'A' },
-      { subject: 'Database Systems', grade: 'A+' },
-      { subject: 'Software Engineering', grade: 'A-' }
+      { subject: 'Computer Networks', grade: 'A', score: 92 },
+      { subject: 'Database Systems', grade: 'A+', score: 98 },
+      { subject: 'Software Engineering', grade: 'A-', score: 89 }
+    ],
+    achievements: [
+      { title: 'Dean\'s List', date: 'Fall 2023', icon: <Award className="w-5 h-5" /> },
+      { title: 'Research Excellence', date: 'Spring 2024', icon: <Zap className="w-5 h-5" /> },
+      { title: 'Perfect Attendance', date: 'Current', icon: <Trophy className="w-5 h-5" /> }
     ]
   };
+
+  const upcomingEvents = [
+    {
+      title: 'Tech Workshop',
+      date: 'Tomorrow, 2:00 PM',
+      location: 'Lab 204',
+      type: 'workshop',
+      image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400'
+    },
+    {
+      title: 'Career Fair',
+      date: 'March 25, 10:00 AM',
+      location: 'Main Hall',
+      type: 'career',
+      image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=400'
+    }
+  ];
 
   if (showWelcome) {
     return (
       <motion.div 
-        className="fixed inset-0 flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600"
+        className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -124,25 +157,26 @@ export function HomePage() {
     <div className="space-y-12 pb-12">
       {/* Hero Section */}
       <FadeInSection>
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-8 text-white">
-          <div className="flex justify-between items-start">
+        <div className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-xl">
+          <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,transparent,rgba(255,255,255,0.5))]" />
+          <div className="relative flex justify-between items-start">
             <div>
               <motion.h1 
-                className="text-3xl font-bold mb-2"
+                className="text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 Welcome back, John! 👋
               </motion.h1>
-              <p className="text-indigo-100">Here's what's happening in your campus today</p>
+              <p className="text-lg text-indigo-100">Here's what's happening in your campus today</p>
             </div>
             <div className="text-right">
-              <div className="flex items-center space-x-2 bg-white/10 rounded-lg p-3">
+              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-xl rounded-2xl p-4 border border-white/20">
                 {weather.icon}
                 <div>
-                  <p className="font-semibold">{weather.temp}</p>
-                  <p className="text-sm text-indigo-100">{weather.condition}</p>
+                  <p className="font-semibold text-xl">{weather.temp}</p>
+                  <p className="text-indigo-100">{weather.condition}</p>
                 </div>
               </div>
             </div>
@@ -161,16 +195,19 @@ export function HomePage() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Link to={action.link} className="block group">
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 transition-transform transform hover:-translate-y-1 hover:shadow-lg">
-                  <div className={`${action.color} w-12 h-12 rounded-lg flex items-center justify-center text-white mb-4`}>
+                <div className={`relative overflow-hidden bg-gradient-to-br ${action.gradient} backdrop-blur-xl rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] ${action.borderGlow} border border-white/20 dark:border-gray-800`}>
+                  <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:linear-gradient(0deg,transparent,rgba(255,255,255,0.5))]" />
+                  <div className={`relative bg-gradient-to-br ${action.iconGradient} w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 transition-transform duration-300`}>
                     {action.icon}
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    {action.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {action.description}
-                  </p>
+                  <div className="relative">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 transition-colors duration-300">
+                      {action.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {action.description}
+                    </p>
+                  </div>
                 </div>
               </Link>
             </motion.div>
@@ -180,40 +217,74 @@ export function HomePage() {
 
       {/* Academic Progress */}
       <FadeInSection delay={0.3}>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Academic Progress</h2>
-            <TrendingUp className="w-6 h-6 text-indigo-500" />
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
+              Academic Progress
+            </h2>
+            <GraduationCap className="w-6 h-6 text-indigo-500" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-indigo-50 dark:bg-gray-700 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-300">Current CGPA</p>
-              <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">{academicProgress.cgpa}</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="bg-gradient-to-br from-blue-500/10 to-indigo-500/10 p-6 rounded-2xl backdrop-blur-xl border border-white/20">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Current CGPA</p>
+              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{academicProgress.cgpa}</p>
             </div>
-            <div className="bg-purple-50 dark:bg-gray-700 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-300">Semester</p>
-              <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">{academicProgress.semester}</p>
+            <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-6 rounded-2xl backdrop-blur-xl border border-white/20">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Semester</p>
+              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{academicProgress.semester}</p>
             </div>
-            <div className="bg-green-50 dark:bg-gray-700 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-300">Credits Completed</p>
-              <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+            <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 p-6 rounded-2xl backdrop-blur-xl border border-white/20">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Credits Completed</p>
+              <p className="text-3xl font-bold text-green-600 dark:text-green-400">
                 {academicProgress.completedCredits}/{academicProgress.totalCredits}
               </p>
             </div>
-            <div className="bg-orange-50 dark:bg-gray-700 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-300">Recent Performance</p>
-              <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">Excellent</p>
+            <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/10 p-6 rounded-2xl backdrop-blur-xl border border-white/20">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Achievement Points</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">850</p>
             </div>
           </div>
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Recent Grades</h3>
-            <div className="space-y-3">
-              {academicProgress.recentGrades.map((grade, index) => (
-                <div key={index} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                  <span className="text-gray-900 dark:text-white">{grade.subject}</span>
-                  <span className="font-semibold text-indigo-600 dark:text-indigo-400">{grade.grade}</span>
-                </div>
-              ))}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Recent Grades</h3>
+              <div className="space-y-4">
+                {academicProgress.recentGrades.map((grade, index) => (
+                  <div key={index} className="bg-gradient-to-r from-gray-50/50 to-white/50 dark:from-gray-800/50 dark:to-gray-700/50 p-4 rounded-xl backdrop-blur-xl border border-white/20 dark:border-gray-700/20">
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium text-gray-900 dark:text-white">{grade.subject}</span>
+                      <div className="flex items-center space-x-3">
+                        <span className="text-sm text-gray-500 dark:text-gray-400">{grade.score}%</span>
+                        <span className="font-semibold text-indigo-600 dark:text-indigo-400">{grade.grade}</span>
+                      </div>
+                    </div>
+                    <div className="mt-2 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                      <div 
+                        className="bg-gradient-to-r from-indigo-500 to-purple-500 h-1.5 rounded-full"
+                        style={{ width: `${grade.score}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Recent Achievements</h3>
+              <div className="space-y-4">
+                {academicProgress.achievements.map((achievement, index) => (
+                  <div key={index} className="bg-gradient-to-r from-gray-50/50 to-white/50 dark:from-gray-800/50 dark:to-gray-700/50 p-4 rounded-xl backdrop-blur-xl border border-white/20 dark:border-gray-700/20 flex items-center space-x-4">
+                    <div className="bg-gradient-to-br from-indigo-500 to-purple-500 p-2 rounded-lg text-white">
+                      {achievement.icon}
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900 dark:text-white">{achievement.title}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{achievement.date}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -221,86 +292,84 @@ export function HomePage() {
 
       {/* Campus News */}
       <FadeInSection delay={0.4}>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Campus News</h2>
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
+              Campus News
+            </h2>
             <Newspaper className="w-6 h-6 text-indigo-500" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {campusNews.map((news, index) => (
-              <div key={index} className="group cursor-pointer">
-                <div className="relative overflow-hidden rounded-lg mb-4">
+              <motion.div
+                key={index}
+                className={`group cursor-pointer bg-gradient-to-br ${news.gradient} backdrop-blur-xl rounded-2xl overflow-hidden border border-white/20 dark:border-gray-700/20 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+                whileHover={{ y: -5 }}
+              >
+                <div className="relative h-48 overflow-hidden">
                   <img 
                     src={news.image} 
-                    alt={news.title} 
-                    className="w-full h-48 object-cover transform transition-transform group-hover:scale-105"
+                    alt={news.title}
+                    className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"
                   />
-                  <div className="absolute top-2 right-2 bg-white/90 dark:bg-gray-800/90 px-3 py-1 rounded-full text-sm">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 px-4 py-1 rounded-full text-sm font-medium backdrop-blur-md">
                     {news.category}
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">
-                  {news.title}
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{news.date}</p>
-              </div>
+                <div className="p-6">
+                  <h3 className="font-semibold text-lg text-gray-900 dark:text-white group-hover:text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
+                    {news.title}
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{news.date}</p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </FadeInSection>
 
-      {/* Upcoming & Schedule */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FadeInSection delay={0.5}>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Today's Schedule</h2>
-              <Calendar className="w-5 h-5 text-indigo-500" />
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-4">
-                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white">Computer Networks</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">9:00 AM - 10:30 AM</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white">Mathematics</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">11:00 AM - 12:30 PM</p>
-                </div>
-              </div>
-            </div>
+      {/* Upcoming Events */}
+      <FadeInSection delay={0.5}>
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
+              Upcoming Events
+            </h2>
+            <Calendar className="w-6 h-6 text-indigo-500" />
           </div>
-        </FadeInSection>
-
-        <FadeInSection delay={0.6}>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Upcoming Deadlines</h2>
-              <Bell className="w-5 h-5 text-indigo-500" />
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white">Research Paper</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Computer Networks</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {upcomingEvents.map((event, index) => (
+              <div key={index} className="group relative overflow-hidden rounded-2xl">
+                <div className="absolute inset-0">
+                  <img 
+                    src={event.image} 
+                    alt={event.title}
+                    className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
                 </div>
-                <span className="text-red-500 text-sm">Due Tomorrow</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white">Math Assignment</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Chapter 5 Problems</p>
+                <div className="relative p-6">
+                  <span className="inline-block px-3 py-1 bg-white/90 dark:bg-gray-800/90 rounded-full text-sm font-medium backdrop-blur-md mb-4">
+                    {event.type}
+                  </span>
+                  <h3 className="text-xl font-semibold text-white mb-2">{event.title}</h3>
+                  <div className="space-y-2 text-gray-200">
+                    <p className="flex items-center space-x-2">
+                      <Calendar className="w-4 h-4" />
+                      <span>{event.date}</span>
+                    </p>
+                    <p className="flex items-center space-x-2">
+                      <Users className="w-4 h-4" />
+                      <span>{event.location}</span>
+                    </p>
+                  </div>
                 </div>
-                <span className="text-yellow-500 text-sm">Due in 3 days</span>
               </div>
-            </div>
+            ))}
           </div>
-        </FadeInSection>
-      </div>
+        </div>
+      </FadeInSection>
     </div>
   );
 }
